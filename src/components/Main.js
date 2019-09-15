@@ -3,19 +3,30 @@ import React from 'react';
 export class Main extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {value: ''};
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.state = {
+      value: '',
+      symbols: []
+    };
   }
 
-  handleChange(event){
-    console.log(event.target.value);
+  setSymbols=async(value)=>{
+    value=value.toUpperCase();
+    let symbolList = value.split(',').map(function(symbol){
+      return symbol.trim();
+    })
+
+    console.log("symbolList = " + symbolList);
+    await this.setState({symbols: [...this.state.symbols, ...symbolList]});
+    console.log(this.state.symbols);
+  }
+
+  handleChange= (event)=>{
     this.setState({value: event.target.value});
   }
 
 
-  handleSubmit(event){
-    console.log("this state value =" + this.state.value);
+  handleSubmit=(event)=>{
+    this.setSymbols(this.state.value);
     event.preventDefault();
   }
 
