@@ -1,10 +1,11 @@
 {
   "name": "stocktwit",
+  "author": "Publikwerker",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
     "dotenv": "^8.1.0",
-    "express": "^4.17.1",
+    "node-sass": "^4.12.0",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "react-scripts": "3.1.1",
@@ -14,7 +15,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "compile:sass": "node-sass sass/main.scss src/index.css -w"
   },
   "eslintConfig": {
     "extends": "react-app"

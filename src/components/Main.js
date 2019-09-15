@@ -1,5 +1,6 @@
 import React from 'react';
 import StoTwi from '../utils/stoTwi';
+import TwitDisplay from './TwitDisplay';
 
 export class Main extends React.Component {
   constructor(props) {
@@ -11,6 +12,8 @@ export class Main extends React.Component {
     };
   }
 
+  // adds new symbols to 
+  // array in state
   setSymbols=async(value)=>{
     try {
       value = value.toUpperCase();
@@ -24,6 +27,9 @@ export class Main extends React.Component {
     };
   }
 
+  // saves an object with key/value pairs
+  // of symbol and twits to an array 
+  // in state called messages
   loadMessages = async (symbols) => {
     try {
       for(let symbol of symbols) {
@@ -46,6 +52,7 @@ export class Main extends React.Component {
     };
   }
 
+  // adds keystrokes to state
   handleChange = (event) => {
     this.setState({value: event.target.value});
   }
@@ -68,11 +75,12 @@ export class Main extends React.Component {
       <div className="symbol-input">
         <form name="symbolInput" onSubmit={this.handleSubmit}>
           <label>
-            Symbol or list of symbols:
+            Symbol or comma separated list of symbols:
             <input type="text" name="name" placeholder="AAPL" onChange={this.handleChange} />
           </label>
           <input type="submit" value="Submit"/>
         </form>
+        <TwitDisplay />
       </div>
     </main>
   )
