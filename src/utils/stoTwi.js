@@ -1,13 +1,17 @@
 const request = require('request');
 const {STOCKTWITS_API} = require('../config');
 
-export default function StoTwi(symbol){
+export default function StoTwi(symbol, callback){
   console.log(symbol);
-  let url = `${STOCKTWITS_API}/${symbol}`;
+  let url = `${STOCKTWITS_API}/${symbol}.json`;
   console.log(url);
+  let messages;
   request({url, json:true}, (err, response, body) => {
     if (err){
-      return (`Unable to access network connection`);
-    } else return (undefined, response);
-  })
+      callback(`Unable to access network connection`);
+    } else {
+      console.log(response);
+      console.log(body);
+      callback(undefined, body.messages)};
+  });
 }

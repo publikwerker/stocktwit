@@ -6,32 +6,59 @@ export class Main extends React.Component {
     super(props);
     this.state = {
       value: '',
-      symbols: []
+      symbols: [],
+      messages: []
     };
   }
 
   setSymbols=async(value)=>{
-    value=value.toUpperCase();
-    let symbolList = value.split(',').map(function(symbol){
-      return symbol.trim();
-    })
+    try {
+      value = value.toUpperCase();
+      let symbolList = value.split(',').map((symbol)=>symbol.trim())
 
-    console.log("symbolList = " + symbolList);
-    await this.setState({symbols: [...this.state.symbols, ...symbolList]});
-    for(let symbol of this.state.symbols){
-      console.log(symbol);
-      console.log(StoTwi(symbol))
-    }
+      await this.setState({
+        symbols: [...this.state.symbols, ...symbolList]
+      });
+    } catch(err) {
+      console.log(err);
+    };
   }
 
-  handleChange= (event)=>{
+  loadMessages = async (symbols) => {
+    try {
+      for(let symbol of symbols) {
+        await StoTwi(symbol, (error, symMess) => {
+          if (error) {
+            alert(error);
+          } else {
+            console.log(symMess);
+            return this.setState({
+              messages: [...this.state.messages, {
+                symbol,
+                twits: [...symMess]
+              }]
+            });
+          }
+        });
+      }
+    } catch (err) {
+      console.log(err);
+    };
+  }
+
+  handleChange = (event) => {
     this.setState({value: event.target.value});
   }
 
 
-  handleSubmit=(event)=>{
-    this.setSymbols(this.state.value);
-    event.preventDefault();
+  handleSubmit = async (event) => {
+    try {
+      event.preventDefault();
+      await this.setSymbols(this.state.value);
+      await this.loadMessages(this.state.symbols);
+    } catch (err) {
+      console.log(err);
+    }
   }
 
   render(){
