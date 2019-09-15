@@ -1,4 +1,5 @@
 import React from 'react';
+import StoTwi from '../utils/stoTwi';
 
 export class Main extends React.Component {
   constructor(props) {
@@ -17,7 +18,10 @@ export class Main extends React.Component {
 
     console.log("symbolList = " + symbolList);
     await this.setState({symbols: [...this.state.symbols, ...symbolList]});
-    console.log(this.state.symbols);
+    for(let symbol of this.state.symbols){
+      console.log(symbol);
+      console.log(StoTwi(symbol))
+    }
   }
 
   handleChange= (event)=>{
