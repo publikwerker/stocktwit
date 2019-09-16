@@ -23,7 +23,7 @@ export class Main extends React.Component {
       await this.setState({
         fromTwitContainer: data
       });
-      await this.removeSymbol();
+      await this.removeSymbol(data);
       await this.loadMessages();
     } catch (err) {
       this.setError(err)
@@ -62,15 +62,17 @@ export class Main extends React.Component {
   }
 
   // removes symbol from symbol array in state
-  removeSymbol(){
-    let newList = this.state.symbols.filter((symbol) => symbol !== this.state.fromTwitContainer );
+  removeSymbol(data){
+    let newList = this.state.symbols.filter((symbol) => symbol !== data );
     if(newList.length){
       this.setState({
         symbols: [...newList]
       })
     } else this.setState({
-      symbols: []
-    })
+      symbols: [],
+      messages: [],
+      fromTwitContainer: ''
+    });
   }
 
   // saves an object with key/value pairs of symbol and twits 
@@ -81,7 +83,8 @@ export class Main extends React.Component {
       for(let symbol of this.state.symbols) {
         await StoTwi(symbol, async (error, symMess) => {
           if (error) {
-            this.setError(error);
+            await this.setError(error);
+            await this.removeSymbol(symbol);
           } 
           if (symMess) {
             try {
@@ -122,8 +125,8 @@ export class Main extends React.Component {
       await this.setSymbols(this.state.value);
       await this.loadMessages(this.state.symbols);
     } catch (error) {
-      console.log(error);
-      this.setError({error});
+      console.log(error.message);
+      this.setError(error.message);
     }
   }
 
@@ -131,7 +134,7 @@ export class Main extends React.Component {
     
     let error;
     if(this.state.error){
-      error = (<p className="error-text">{this.state.error.error.message}</p>)
+      error = (<p className="error-text">{this.state.error}</p>)
     }
 
     return (

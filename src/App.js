@@ -4,7 +4,7 @@ import {Main} from './components/Main';
 function App() {
   return (
     <div className="App">
-      <header className="App__header"></header>
+      <header className="App__header">Follow your favorite stocks with the StockTwits API</header>
       <Main />
       {/* this is what
       needs to happen:

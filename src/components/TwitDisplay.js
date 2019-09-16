@@ -2,9 +2,6 @@ import React from 'react';
 import MessageList from './MessageList';
 
 export default class TwitDisplay extends React.Component{
-  constructor() {
-    super();
-  }
 
   submitHandler = (e) => {
     e.preventDefault();
