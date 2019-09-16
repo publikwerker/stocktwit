@@ -8,7 +8,7 @@ export default class TwitDisplay extends React.Component{
     let list =[];
     for(let i=0; i<this.props.messages.length; i++){
       list.push(<li key={this.props.messages[i].symbol} className='twits-container__item'>
-      <h2 className='twits-container__item--title' >{this.props.messages[i].symbol}</h2>
+      <h2 className='twits-container__item--title' >{this.props.messages[i].symbol}: ({this.props.messages[i].twits.length})</h2>
       <MessageList twits={this.props.messages[i].twits}/>
       </li>)
     }

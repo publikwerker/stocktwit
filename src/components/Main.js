@@ -13,13 +13,26 @@ export class Main extends React.Component {
     };
   }
 
-  // adds new symbols to 
-  // array in state
-  setSymbols=async(value)=>{
-    try {
-      value = value.toUpperCase();
-      let symbolList = value.split(',').map((symbol)=>symbol.trim())
+  // adds keystrokes to value in state
+  handleChange = (event) => {
+    this.setState({
+      value: event.target.value,
+    error: null});
+  }
 
+  // adds new symbols to array in state from value
+  setSymbols=async(value)=>{
+    value = value.toUpperCase();
+    let symbolList = value.split(',').map((symbol)=>symbol.trim());
+    
+    //check if symbol values already exist
+    if(this.state.symbols.length>0){
+      for(let val of this.state.symbols){
+        return symbolList = symbolList.filter((value) => value !== val);
+      }
+    }
+    
+    try {
       await this.setState({
         value: '',
         symbols: [...this.state.symbols, ...symbolList]
@@ -29,9 +42,8 @@ export class Main extends React.Component {
     };
   }
 
-  // saves an object with key/value pairs
-  // of symbol and twits to an array 
-  // in state called messages
+  // saves an object with key/value pairs of symbol and twits 
+  // to an array in state called messages
   loadMessages = async (symbols) => {
     let allMessages = [];
     try {
@@ -61,24 +73,21 @@ export class Main extends React.Component {
     };
   }
 
+  // sets error to state
   setError = (error) => {
     this.setState({error});
-  }
-
-  // adds keystrokes to state
-  handleChange = (event) => {
-    this.setState({
-      value: event.target.value,
-    error: null});
   }
 
 
   handleSubmit = async (event) => {
     try {
       event.preventDefault();
+
+      //check if they submit an empty field
       if(!this.state.value){
         throw new Error('Error: Must type in symbol');
       }
+
       await this.setSymbols(this.state.value);
       await this.loadMessages(this.state.symbols);
     } catch (error) {
@@ -88,10 +97,15 @@ export class Main extends React.Component {
   }
 
   render(){
+    
     let error;
     if(this.state.error){
       error = (<p className="error-text">{this.state.error.error.message}</p>)
     }
+    
+    const symbolList =
+      this.state.symbols.length ? <p className="body__display--symbol-list">These are the symbols you are tracking: {this.state.symbols}</p> : <p className="body__display--symbol-list">You aren't following any symbols, yet.</p>
+
     return (
       <main className="body">
       <div className="body__symbol-input">
@@ -99,13 +113,16 @@ export class Main extends React.Component {
         <form name="symbolInput" onSubmit={this.handleSubmit}>
           <label>
             <span className="body__symbol-input--label">
-            Symbol or comma separated list of symbols: </span>
+            Enter a stock symbol or comma separated list of symbols: </span>
             <input type="text" name="body__symbol-input--name" placeholder="AAPL" onChange={this.handleChange} />
           </label>
           <input type="submit" value="Submit"/>
         </form>
       </div>
+      <section className="body__display">
+        {symbolList}
         <TwitDisplay messages={this.state.messages}/>
+      </section>
     </main>
   )
 }

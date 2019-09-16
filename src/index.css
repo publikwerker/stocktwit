@@ -13,7 +13,8 @@ body {
   box-sizing: border-box;
   align-items: center;
   justify-content: center;
-  position: relative; }
+  position: relative;
+  background-color: #f7f7f7; }
 
 *,
 *::after,
@@ -51,20 +52,30 @@ code {
     text-transform: uppercase;
     color: #777; }
 
+.twits-container__item--title {
+  color: #111;
+  font-size: 1.8rem;
+  padding-bottom: 2rem; }
+
 .body__symbol-input {
-  display: block;
-  padding: 2rem;
-  margin: 2rem auto; }
+  display: block; }
+  .body__symbol-input--name {
+    display: block; }
+  .body__symbol-input--label {
+    display: block;
+    padding: 2rem;
+    margin: 2rem auto; }
 
-.body__symbol-input--name {
-  display: block;
-  padding: 2rem;
-  margin: 2rem auto; }
+.body__display--symbol-list {
+  margin: 0 auto 2rem;
+  padding: 2rem; }
 
-.body__symbol-input--label {
-  display: block;
-  padding: 2rem;
-  margin: 2rem auto; }
+.App__footer {
+  background-color: #282c34;
+  width: 100%;
+  height: 5rem;
+  position: absolute;
+  bottom: 0px; }
 
 header {
   background-color: #282c34;
@@ -72,6 +83,9 @@ header {
 
 .messageList__twit-list {
   list-style: none; }
+
+.twits {
+  width: 100%; }
 
 .twits-container {
   width: 100%;
@@ -89,11 +103,31 @@ header {
   padding: 2rem;
   margin: auto;
   align-self: flex-start;
-  overflow: scroll; }
-
-.twits-container__item--title {
-  color: skyblue;
-  font-size: 1.8rem; }
+  overflow: scroll;
+  box-shadow: 0 1rem 2rem rgba(36, 36, 36, 0.8);
+  -webkit-box-shadow: 0 1rem 2rem rgba(36, 36, 36, 0.8);
+  -moz-box-shadow: 0 1rem 2rem rgba(36, 36, 36, 0.8); }
 
 .twits-container__item--message {
   width: 100%; }
+
+@media only screen and (min-width: 50rem) {
+  .twits-container__item {
+    display: inline-block;
+    margin: 0 auto;
+    width: 50%;
+    vertical-align: top; } }
+
+@media only screen and (min-width: 75rem) {
+  .twits-container__item {
+    display: inline-block;
+    margin: 0 auto;
+    width: 30%;
+    vertical-align: top; } }
+
+@media only screen and (min-width: 90rem) {
+  .twits-container__item {
+    display: inline-block;
+    margin: 0 auto;
+    width: 25%;
+    vertical-align: top; } }

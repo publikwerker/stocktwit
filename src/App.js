@@ -4,9 +4,7 @@ import {Main} from './components/Main';
 function App() {
   return (
     <div className="App">
-      <header className="App__header">
-        This is the header.
-      </header>
+      <header className="App__header"></header>
       <Main />
       {/* this is what
       needs to happen:
@@ -14,6 +12,7 @@ function App() {
       2. a call is made for each, and an object is formed for each symbol and the response.
       3. flex-box display of each group listing number of tweets
       4. some manner of user interface to edit list of symbols */}
+      <footer className='App__footer'></footer>
     </div>
   );
 }
