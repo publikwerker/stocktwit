@@ -1,16 +1,34 @@
 import React from 'react';
 import StoTwi from '../utils/stoTwi';
 import TwitDisplay from './TwitDisplay';
+import SymbolList from './SymbolList';
 
 export class Main extends React.Component {
   constructor(props) {
     super(props);
+    this.handleData = this.handleData.bind(this);
     this.state = {
+      fromTwitContainer: '',
       value: '',
       symbols: [],
       messages: [],
       error: null
     };
+  }
+
+  //receives delete data from twit__container
+  //removes symbol from array in state
+  handleData= async(data)=>{
+    try {
+      await this.setState({
+        fromTwitContainer: data
+      });
+      await this.removeSymbol();
+      await this.loadMessages();
+    } catch (err) {
+      this.setError(err)
+    }
+
   }
 
   // adds keystrokes to value in state
@@ -37,17 +55,30 @@ export class Main extends React.Component {
         value: '',
         symbols: [...this.state.symbols, ...symbolList]
       });
+      document.getElementById("symbolInput").reset();
     } catch(err) {
       console.log(err);
     };
   }
 
+  // removes symbol from symbol array in state
+  removeSymbol(){
+    let newList = this.state.symbols.filter((symbol) => symbol !== this.state.fromTwitContainer );
+    if(newList.length){
+      this.setState({
+        symbols: [...newList]
+      })
+    } else this.setState({
+      symbols: []
+    })
+  }
+
   // saves an object with key/value pairs of symbol and twits 
   // to an array in state called messages
-  loadMessages = async (symbols) => {
+  loadMessages = async () => {
     let allMessages = [];
     try {
-      for(let symbol of symbols) {
+      for(let symbol of this.state.symbols) {
         await StoTwi(symbol, async (error, symMess) => {
           if (error) {
             this.setError(error);
@@ -102,26 +133,23 @@ export class Main extends React.Component {
     if(this.state.error){
       error = (<p className="error-text">{this.state.error.error.message}</p>)
     }
-    
-    const symbolList =
-      this.state.symbols.length ? <p className="body__display--symbol-list">These are the symbols you are tracking: {this.state.symbols}</p> : <p className="body__display--symbol-list">You aren't following any symbols, yet.</p>
 
     return (
       <main className="body">
       <div className="body__symbol-input">
       {error}
-        <form name="symbolInput" onSubmit={this.handleSubmit}>
+        <form name="symbolInput" id="symbolInput" onSubmit={this.handleSubmit}>
           <label>
             <span className="body__symbol-input--label">
             Enter a stock symbol or comma separated list of symbols: </span>
-            <input type="text" name="body__symbol-input--name" placeholder="AAPL" onChange={this.handleChange} />
+            <input type="text" name="body__symbol-input--name" placeholder="AAPL, for example" onChange={this.handleChange} />
           </label>
           <input type="submit" value="Submit"/>
         </form>
       </div>
       <section className="body__display">
-        {symbolList}
-        <TwitDisplay messages={this.state.messages}/>
+        <SymbolList symbols={this.state.symbols}/>
+        <TwitDisplay messages={this.state.messages} handlerFromParent={this.handleData}/>
       </section>
     </main>
   )

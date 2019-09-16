@@ -63,7 +63,6 @@ code {
     display: block; }
   .body__symbol-input--label {
     display: block;
-    padding: 2rem;
     margin: 2rem auto; }
 
 .body__display--symbol-list {
@@ -71,14 +70,14 @@ code {
   padding: 2rem; }
 
 .App__footer {
-  background-color: #282c34;
+  background-color: #55c57a;
   width: 100%;
   height: 5rem;
   position: absolute;
   bottom: 0px; }
 
-header {
-  background-color: #282c34;
+.App__header {
+  background-color: #55c57a;
   width: 100%; }
 
 .messageList__twit-list {
@@ -104,6 +103,7 @@ header {
   margin: auto;
   align-self: flex-start;
   overflow: scroll;
+  text-align: left;
   box-shadow: 0 1rem 2rem rgba(36, 36, 36, 0.8);
   -webkit-box-shadow: 0 1rem 2rem rgba(36, 36, 36, 0.8);
   -moz-box-shadow: 0 1rem 2rem rgba(36, 36, 36, 0.8); }
