@@ -8,7 +8,8 @@ export class Main extends React.Component {
     this.state = {
       value: '',
       symbols: [],
-      messages: []
+      messages: [],
+      error: null
     };
   }
 
@@ -20,6 +21,7 @@ export class Main extends React.Component {
       let symbolList = value.split(',').map((symbol)=>symbol.trim())
 
       await this.setState({
+        value: '',
         symbols: [...this.state.symbols, ...symbolList]
       });
     } catch(err) {
@@ -31,48 +33,69 @@ export class Main extends React.Component {
   // of symbol and twits to an array 
   // in state called messages
   loadMessages = async (symbols) => {
+    let allMessages = [];
     try {
       for(let symbol of symbols) {
-        await StoTwi(symbol, (error, symMess) => {
+        await StoTwi(symbol, async (error, symMess) => {
           if (error) {
-            alert(error);
-          } else {
-            console.log(symMess);
-            return this.setState({
-              messages: [...this.state.messages, {
+            this.setError(error);
+          } 
+          if (symMess) {
+            try {
+              await allMessages.push({
                 symbol,
                 twits: [...symMess]
-              }]
-            });
+              });
+              console.log(allMessages); 
+              await this.setState({
+                messages: [...allMessages]
+              })
+            } catch (err) {
+              this.setError(err);
+            }
           }
         });
       }
     } catch (err) {
-      console.log(err);
+      this.setError(err);
     };
+  }
+
+  setError = (error) => {
+    this.setState({error});
   }
 
   // adds keystrokes to state
   handleChange = (event) => {
-    this.setState({value: event.target.value});
+    this.setState({
+      value: event.target.value,
+    error: null});
   }
 
 
   handleSubmit = async (event) => {
     try {
       event.preventDefault();
+      if(!this.state.value){
+        throw new Error('Error: Must type in symbol');
+      }
       await this.setSymbols(this.state.value);
       await this.loadMessages(this.state.symbols);
-    } catch (err) {
-      console.log(err);
+    } catch (error) {
+      console.log(error);
+      this.setError({error});
     }
   }
 
   render(){
-
+    let error;
+    if(this.state.error){
+      error = (<p className="error-text">{this.state.error.error.message}</p>)
+    }
     return (
       <main>
       <div className="symbol-input">
+      {error}
         <form name="symbolInput" onSubmit={this.handleSubmit}>
           <label>
             Symbol or comma separated list of symbols:
@@ -80,7 +103,7 @@ export class Main extends React.Component {
           </label>
           <input type="submit" value="Submit"/>
         </form>
-        <TwitDisplay />
+        <TwitDisplay messages={this.state.messages}/>
       </div>
     </main>
   )
