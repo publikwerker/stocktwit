@@ -93,18 +93,19 @@ export class Main extends React.Component {
       error = (<p className="error-text">{this.state.error.error.message}</p>)
     }
     return (
-      <main>
-      <div className="symbol-input">
+      <main className="body">
+      <div className="body__symbol-input">
       {error}
         <form name="symbolInput" onSubmit={this.handleSubmit}>
           <label>
-            Symbol or comma separated list of symbols:
-            <input type="text" name="name" placeholder="AAPL" onChange={this.handleChange} />
+            <span className="body__symbol-input--label">
+            Symbol or comma separated list of symbols: </span>
+            <input type="text" name="body__symbol-input--name" placeholder="AAPL" onChange={this.handleChange} />
           </label>
           <input type="submit" value="Submit"/>
         </form>
-        <TwitDisplay messages={this.state.messages}/>
       </div>
+        <TwitDisplay messages={this.state.messages}/>
     </main>
   )
 }

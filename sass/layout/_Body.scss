@@ -1,0 +1,17 @@
+.body__symbol-input {
+
+  display: block;
+  padding: 2rem;
+  margin: 2rem auto;
+  
+  &--name {
+    display: block;
+    padding: 2rem;
+  }
+  
+  &--label {
+    display: block;
+    padding: 2rem;
+    margin: 2rem auto;
+  }
+}
