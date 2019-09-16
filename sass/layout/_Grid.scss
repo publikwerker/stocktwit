@@ -1,0 +1,55 @@
+.row {
+  max-width: $grid-width;
+  margin: 0 auto;
+  padding: 3rem;
+  text-align: center;
+  
+  &:not(:last-child) {
+    margin-bottom: $gutter-vertical;
+  }
+  
+  overflow: auto;
+  @include clearfix;
+}
+
+.col {
+  margin: 2rem;
+}
+
+
+@media only screen and (min-width: 50rem) {
+
+  .col {
+    display: inline-block;
+    margin: 0 auto;
+    width: 50%;
+  }
+
+}
+
+@media only screen and (min-width: 75rem) {
+
+  .col {
+    display: inline-block;
+    margin: 0 auto;
+    width: 30%;
+  }
+}
+
+@media only screen and (min-width: 90rem) {
+
+  .col {
+    display: inline-block;
+    margin: 0 auto;
+    width: 25%;
+  }
+}
+
+@media only screen and (min-width: 120rem) {
+
+  .col {
+    display: inline-block;
+    margin: 0 auto;
+    width: 20%;
+  }
+}

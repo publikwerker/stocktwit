@@ -1,40 +1,9 @@
+@import 'abstracts/Mixins';
 @import 'abstracts/Variables';
 @import 'base/Base';
 @import 'base/Typography';
+@import 'components/Buttons';
 @import 'layout/Body';
-@import 'layout/Footer';
+@import 'layout/Grid';
 @import 'layout/Header';
 @import 'layout/MessageList';
-@import 'components/Buttons';
-
-
-@media only screen and (min-width: 50rem) {
-
-  .twits-container__item {
-    display: inline-block;
-    margin: 0 auto;
-    width: 50%;
-    vertical-align: top;
-  }
-
-}
-
-@media only screen and (min-width: 75rem) {
-
-  .twits-container__item {
-    display: inline-block;
-    margin: 0 auto;
-    width: 30%;
-    vertical-align: top;
-  }
-}
-
-@media only screen and (min-width: 90rem) {
-
-  .twits-container__item {
-    display: inline-block;
-    margin: 0 auto;
-    width: 25%;
-    vertical-align: top;
-  }
-}
