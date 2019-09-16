@@ -4,7 +4,12 @@ const {STOCKTWITS_API} = require('../config');
 
 export default function StoTwi(symbol, callback){
   let url = `${STOCKTWITS_API}/${symbol}.json`;
-  request({url, mode:"no-cors", json:true}, (err, response, body) => {
+  let options = {
+    headers:{
+        "mode": "no-cors"
+    }
+}
+  request({url, options, json:true}, (err, response, body) => {
     if (err){
       console.log(err);
       callback(`Unable to access network connection`);
