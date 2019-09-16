@@ -92,7 +92,6 @@ export class Main extends React.Component {
                 symbol,
                 twits: [...symMess]
               });
-              console.log(allMessages); 
               await this.setState({
                 messages: [...allMessages]
               })
@@ -130,6 +129,14 @@ export class Main extends React.Component {
     }
   }
 
+  // rerender feed every 60 seconds
+  componentDidUpdate(){
+    const timer = setTimeout(()=> {
+      this.loadMessages();
+    }, 60000);
+    return () => clearTimeout(timer);
+  }
+
   render(){
     
     let error;
@@ -147,7 +154,7 @@ export class Main extends React.Component {
             Enter a stock symbol or comma separated list of symbols: </span>
             <input type="text" name="body__symbol-input--name" placeholder="AAPL, for example" onChange={this.handleChange} />
           </label>
-          <input type="submit" value="Submit"/>
+          <input type="submit" className="button button--submit" value="Submit"/>
         </form>
       </div>
       <section className="body__display">

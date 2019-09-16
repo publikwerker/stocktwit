@@ -1,5 +1,11 @@
 .messageList__twit-list {
+  background-color: $color-white;
   list-style: none;
+
+  &--post {
+    padding: .5rem;
+    border-radius: 3px;
+  }
 }
 
 .twits {
@@ -28,6 +34,8 @@
   box-shadow: 0 1rem 2rem rgba($color-grey-dark-2, .8);
   -webkit-box-shadow: 0 1rem 2rem rgba($color-grey-dark-2, .8);
   -moz-box-shadow: 0 1rem 2rem rgba($color-grey-dark-2, .8);
+
+  position: relative;
 }
 
 .twits-container__item--message {

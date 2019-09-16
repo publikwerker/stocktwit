@@ -81,7 +81,11 @@ code {
   width: 100%; }
 
 .messageList__twit-list {
+  background-color: #eee;
   list-style: none; }
+  .messageList__twit-list--post {
+    padding: .5rem;
+    border-radius: 3px; }
 
 .twits {
   width: 100%; }
@@ -106,10 +110,27 @@ code {
   text-align: left;
   box-shadow: 0 1rem 2rem rgba(36, 36, 36, 0.8);
   -webkit-box-shadow: 0 1rem 2rem rgba(36, 36, 36, 0.8);
-  -moz-box-shadow: 0 1rem 2rem rgba(36, 36, 36, 0.8); }
+  -moz-box-shadow: 0 1rem 2rem rgba(36, 36, 36, 0.8);
+  position: relative; }
 
 .twits-container__item--message {
   width: 100%; }
+
+.button {
+  color: #eee;
+  padding: .5rem 1rem;
+  border-radius: 100px;
+  text-transform: uppercase;
+  font-weight: 500; }
+  .button--delete {
+    background-color: red;
+    display: inline-block;
+    position: absolute;
+    top: 2rem;
+    right: 1rem; }
+  .button--submit {
+    margin-left: 2rem;
+    background-color: #292929; }
 
 @media only screen and (min-width: 50rem) {
   .twits-container__item {

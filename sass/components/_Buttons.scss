@@ -1,0 +1,20 @@
+.button {
+  color: $color-white;
+  padding: .5rem 1rem;
+  border-radius: 100px;
+  text-transform: uppercase;
+  font-weight: 500;
+
+  &--delete {
+    background-color: $color-red-error;
+    display: inline-block;
+    position: absolute;
+    top:2rem;
+    right: 1rem;
+  }
+
+  &--submit {
+    margin-left: 2rem;
+    background-color: $color-grey-dark-1;
+  }
+}

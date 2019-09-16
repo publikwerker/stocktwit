@@ -21,7 +21,7 @@ export default class TwitDisplay extends React.Component{
             name="deleteForm" 
             id={this.props.messages[i].symbol} className="deleteForm"
             onSubmit={this.submitHandler}>
-            <input type="submit" value="Delete" />
+            <input type="submit" className="button button--delete" value="Delete" />
           </form>
           <MessageList twits={this.props.messages[i].twits}/>
       </li>)
