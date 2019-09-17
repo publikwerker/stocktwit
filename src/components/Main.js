@@ -83,7 +83,7 @@ export class Main extends React.Component {
   loadMessages = () => {
     let allMessages = [];
       for(let symbol of this.state.symbols) {
-        fetch(`${BASE_URL_API}/${symbol}`)
+        fetch(`${BASE_URL_API}/${symbol}`).then(res=>console.log(res))
         // .then(res => {
         //   if (!res.ok){
         //     return Promise.reject(res.statusText);
@@ -156,7 +156,7 @@ export class Main extends React.Component {
     
     let error;
     if(this.state.error){
-      error = (<p className="error-text">{this.state.error}</p>)
+      error = (<p className="error-text">{this.state.error.message}</p>)
     }
 
     return (
