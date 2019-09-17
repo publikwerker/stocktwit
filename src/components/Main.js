@@ -1,7 +1,7 @@
 import React from 'react';
-import StoTwi from '../utils/stoTwi';
 import TwitDisplay from './TwitDisplay';
 import SymbolList from './SymbolList';
+const {BASE_URL_API} = require('../config');
 
 export class Main extends React.Component {
   constructor(props) {
@@ -80,37 +80,51 @@ export class Main extends React.Component {
 
   // saves an object with key/value pairs of symbol and twits 
   // to an array in state called messages
-  loadMessages = async () => {
+  loadMessages = () => {
     let allMessages = [];
-    try {
       for(let symbol of this.state.symbols) {
-        await StoTwi(symbol, async (error, symMess) => {
-          if (error) {
-            await this.setError(error);
-            await this.removeSymbol(symbol);
-          } 
-          if (symMess) {
-            try {
-              await allMessages.push({
-                symbol,
-                twits: [...symMess]
-              });
-              await this.setState({
-                messages: [...allMessages]
-              })
-            } catch (err) {
-              this.setError(err);
-            }
+        fetch(`${BASE_URL_API}/${symbol}`)
+        // .then(res => {
+        //   if (!res.ok){
+        //     return Promise.reject(res.statusText);
+        //   }
+        //   return res.json();
+        // })   
+        .then((data) => {
+          return console.log(data);
+        })
+        .catch(error =>
+          this.setError({
+            error
+          }))        
+        // .then(async (error, symMess) => {
+        //   if (error) {
+        //     console.log(error.body);
+        //     await this.setError(error);
+        //     await this.removeSymbol(symbol);
+        //   } 
+        //   if (symMess) {
+        //     try {
+        //       await allMessages.push({
+        //         symbol,
+        //         twits: [...symMess]
+        //       });
+        //       await this.setState({
+        //         messages: [...allMessages]
+        //       })
+        //     } catch (err) {
+        //       this.setError(err);
+        //     }
           }
-        });
-      }
-    } catch (err) {
-      this.setError(err);
-    };
+        // });
+      // }
+ 
+    // };
   }
 
   // sets error to state
   setError = (error) => {
+    console.log(error);
     this.setState({error});
   }
 
